@@ -89,7 +89,7 @@ for page in range(NUM_PAGES):
 # Write to CSV
 title_row = ['Book ID','Book Title', 'Book Price']
 
-with open('book_titles.csv', 'w', newline='') as file:
+with open('books_data.csv', 'w', newline='') as file:
     writer = csv.writer(file)
     writer.writerow(title_row)
     for id_number, title, price in zip(all_id_numbers, all_titles, all_prices):
