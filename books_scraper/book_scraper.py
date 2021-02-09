@@ -55,7 +55,7 @@ for page in range(NUM_PAGES):
     
         cleaned_titles.append(x)
 
-    # Clean 'noisy' data, such as page and .. strings.
+    # Clean 'noisy' data, such as 'page' and '..' strings.
     for x in cleaned_titles:      
         if 'page' in x or '..' in x:
             cleaned_titles.remove(x)  
@@ -87,10 +87,10 @@ for page in range(NUM_PAGES):
     page_index += 1 
 
 # Write to CSV
-title_row = ['Book ID','Book Title', 'Book Price']
+header = ['Book ID','Book Title', 'Book Price']
 
 with open('books_data.csv', 'w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(title_row)
+    writer.writerow(header)
     for id_number, title, price in zip(all_id_numbers, all_titles, all_prices):
         writer.writerow([id_number, title, price])
