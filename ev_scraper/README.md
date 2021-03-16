@@ -4,6 +4,9 @@ can be resumed the next time the script is runed with a change of a variable.
 
 The script uses custom module with the intent of avoiding website defence mechanisms of detecting and stoping scrapers. Proxy rotation, intented delay between requests and change of user agents.
 
+
+![Image description](demo.png)
+
 ## Notes:
 - If there is an error related to the timeout of page request, run the script again.
 - Other than the first note, if there are any other problems while running the script that means either the ev website or proxy website's layout is changed and the script will scrape irrelevant data.
