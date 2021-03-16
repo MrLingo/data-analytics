@@ -1,4 +1,4 @@
-Scraper that collects specific specifications of electric vehicles (Model, torque, acceleration etc.) of [ev database](https://books.toscrape.com/), cleans the data and generates CSV file.
+Scraper that collects specific specifications of electric vehicles (Model, torque, acceleration etc.) of [ev database](https://ev-database.org/), cleans the data and generates CSV file.
 Since the whole scraping takes a while (20-30 minutes), whenever the script is terminated the data collected untill this moment is stored in the CSV and
 can be resumed the next time the script is runed with a change of a variable.
 
