@@ -8,5 +8,6 @@ The script uses custom module with the intent of avoiding website defence mechan
 ![Image description](demo.png)
 
 ## Notes:
+- helper.py could be used with any scraper
 - If there is an error related to the timeout of page request, run the script again.
 - Other than the first note, if there are any other problems while running the script that means either the ev website or proxy website's layout is changed and the script will scrape irrelevant data.
