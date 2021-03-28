@@ -16,7 +16,7 @@ header = ['Model', 'Price UK', 'Price Netherlands', 'Price Germany',
 
 # Change this value to continue appending to ev_data.csv from where the script was terminated.
 # index = # of extracted car untill now + 1.
-global_index = 140
+global_index = 0
 
 page = requests.get('https://ev-database.org/')       
 soup = BeautifulSoup(page.content, 'html.parser')
