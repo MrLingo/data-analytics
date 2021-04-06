@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS mechabots;
 USE mechabots;
-DROP DATABASE mechabots;
+
 
 CREATE TABLE IF NOT EXISTS mechabots.employee (
     EmployeeID INT AUTO_INCREMENT,
@@ -93,6 +93,7 @@ DROP FOREIGN KEY MaterialID;
 
 
 -- Delete if necessary.
+DROP DATABASE mechabots;
 DROP TABLE mechabots.purchase;
 DROP TABLE mechabots.supplier;
 DROP TABLE mechabots.employee;
