@@ -93,7 +93,6 @@ DROP FOREIGN KEY MaterialID;
 
 
 -- Delete if necessary.
-DROP DATABASE mechabots;
 DROP TABLE mechabots.purchase;
 DROP TABLE mechabots.supplier;
 DROP TABLE mechabots.employee;
@@ -101,4 +100,4 @@ DROP TABLE mechabots.project;
 DROP TABLE mechabots.product;
 DROP TABLE mechabots.company_client;
 DROP TABLE mechabots.material;
-
+DROP DATABASE mechabots;
