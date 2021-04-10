@@ -59,3 +59,15 @@ UNION
 SELECT company_client.ClientName
 FROM mechabots.company_client
 ORDER BY 'Employee And ClientName';
+
+
+-- Identify whether a client is corporate one or not, only by email.
+SELECT ClientMail AS Mail, CASE
+WHEN ClientMail LIKE '%gmail%' OR ClientMail LIKE '%abv%' THEN 'This client is non-coprorate one.'
+ELSE 'This client is a corporate one.' 
+END AS TypeOfClient
+FROM mechabots.company_client;
+
+
+-- Fire an employee, using stored procedure.
+CALL mechabots.spFireEmployee('Gregory', 'Adams');

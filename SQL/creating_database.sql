@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS mechabots;
 USE mechabots;
-
+DROP DATABASE mechabots;
 
 CREATE TABLE IF NOT EXISTS mechabots.employee (
     EmployeeID INT AUTO_INCREMENT,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS mechabots.employee (
     FieldOfExpertise VARCHAR(30) NOT NULL,
     Experience INT(2) NOT NULL,
     YearsInTheCompany INT(2) NOT NULL,
-    ManagerID INT,
+    SupervisorID INT,
     ProjectID INT,
     PRIMARY KEY(EmployeeID, FirstName)
 );
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS mechabots.supplier (
 
 -- Connect foreign keys AFTER inserting the records.
 ALTER TABLE mechabots.employee
-ADD FOREIGN KEY (ManagerID) REFERENCES mechabots.employee(EmployeeID) ON DELETE SET NULL;
+ADD FOREIGN KEY (SupervisorID) REFERENCES mechabots.employee(EmployeeID) ON DELETE SET NULL;
 
 ALTER TABLE mechabots.employee
 ADD FOREIGN KEY (ProjectID) REFERENCES mechabots.project(ProjectID) ON DELETE SET NULL;
@@ -88,11 +88,53 @@ ADD FOREIGN KEY (ProductID) REFERENCES mechabots.product(ProductID) ON DELETE CA
 ALTER TABLE mechabots.supplier
 ADD FOREIGN KEY (MaterialID) REFERENCES mechabots.material(MaterialID) ON DELETE CASCADE;
 
+
+
+
 ALTER TABLE mechabots.project
 DROP FOREIGN KEY MaterialID;
 
+-- Separate triggers table.
+CREATE TABLE IF NOT EXISTS mechabots.trigger_table (
+    TriggerID INT AUTO_INCREMENT PRIMARY KEY,
+    MaterialTypeMsg VARCHAR(60) NOT NULL
+);
 
--- Delete if necessary.
+
+-- Alert the user what type of material is being inserted.
+DROP TRIGGER material_type_trig;
+
+DELIMITER $$
+CREATE TRIGGER material_type_trig BEFORE INSERT ON mechabots.material 
+    FOR EACH ROW
+        BEGIN
+            IF NEW.MaterialType = 'Iron' THEN
+                INSERT INTO mechabots.trigger_table(MaterialTypeMsg) VALUES('Iron - supplied!');
+            ELSEIF NEW.MaterialType = 'Copper' THEN
+                INSERT INTO mechabots.trigger_table(MaterialTypeMsg) VALUES('Copper - supplied!');
+            ELSEIF NEW.MaterialType = 'Plastic' THEN
+                INSERT INTO mechabots.trigger_table(MaterialTypeMsg) VALUES('Plastic - supplied!');
+            ELSE
+                INSERT INTO mechabots.trigger_table(MaterialTypeMsg) VALUES('Unknown material supplied!');
+            END IF;
+    END$$
+DELIMITER ;
+
+-- Procedure that simplifies the process of firing an employee.
+DROP PROCEDURE spFireEmployee;
+
+DELIMITER $$
+CREATE PROCEDURE spFireEmployee (IN FirstName VARCHAR(20), IN SurName VARCHAR(20))
+BEGIN
+    DELETE FROM mechabots.employee
+    WHERE employee.FirstName = FirstName AND employee.SurName = SurName;    
+END$$
+DELIMITER ;
+
+-- If necessary.
+SHOW CREATE TABLE mechabots.project;
+
+-- Delete objects/tables if necessary.
 DROP TABLE mechabots.purchase;
 DROP TABLE mechabots.supplier;
 DROP TABLE mechabots.employee;
@@ -100,4 +142,4 @@ DROP TABLE mechabots.project;
 DROP TABLE mechabots.product;
 DROP TABLE mechabots.company_client;
 DROP TABLE mechabots.material;
-DROP DATABASE mechabots;
+DROP TABLE mechabots.trigger_table;
