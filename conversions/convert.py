@@ -80,7 +80,7 @@ for values in data:
         # Different rule for datetime.
         try:
             x = datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S')
-            values.clean.append(x)
+            values_clean.append(x)
             continue
         except:
             pass
